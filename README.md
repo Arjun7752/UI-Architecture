@@ -110,3 +110,263 @@ dashboard/                           # Feature root – Dashboard (analytics, ov
 | Redux Slice      | camelCaseSlice.ts      | dashboardSlice.ts      | Feature-specific state management       |
 | Data / Mock file | camelCase.mock.ts      | dashboard.mock.ts      | Feature-scoped mock/static data         |
 
+
+SASS: 7-1 architecture
+styles/
+│
+├── abstracts/        # No CSS output (only helpers)
+│   ├── _variables.scss
+│   ├── _mixins.scss
+│   ├── _functions.scss
+│
+├── base/             # Reset + base styles
+│   ├── _reset.scss
+│   ├── _typography.scss
+│   └── _base.scss
+│
+├── components/       # Small reusable UI components
+│   ├── _button.scss
+│   ├── _card.scss
+│
+├── layout/           # Layout-related styles
+│   ├── _header.scss
+│   ├── _footer.scss
+│   ├── _grid.scss
+│
+├── pages/            # Page-specific styles
+│   ├── _home.scss
+│   ├── _dashboard.scss
+│
+├── themes/           # Theme variations
+│   ├── _light.scss
+│   └── _dark.scss
+│
+├── vendors/          # Third-party CSS
+│   └── _bootstrap.scss
+│
+└── main.scss         # 👈 Imports everything
+
+
+
+# 🎨 Frontend CSS Architecture Guidelines
+
+## 1. 📌 Objective
+
+This document defines the CSS architecture, conventions, and best practices for the project to ensure:
+
+* Scalability across teams
+* Maintainability over time
+* Consistent design implementation
+* Minimal styling conflicts
+
+---
+
+## 2. 🧱 Architecture Overview
+
+We follow a **feature-based, component-scoped CSS architecture** using:
+
+* **CSS Modules** → Scoped styling
+* **Design Tokens (CSS Variables)** → Consistency & theming
+* **Minimal Global Styles** → Base + reset only
+
+---
+
+## 3. 📂 Folder Structure
+
+```bash
+src/
+│
+├── styles/                    # Global styles (minimal)
+│   ├── base/                 # Reset, typography
+│   ├── tokens/               # Design tokens (colors, spacing, etc.)
+│   ├── themes/               # Light/Dark themes
+│   └── globals.css           # Entry point
+│
+├── shared/
+│   └── components/
+│       └── Button/
+│           ├── Button.tsx
+│           └── Button.module.css
+│
+├── features/
+│   └── dashboard/
+│       └── components/
+│           └── KPIWidget/
+│               ├── KPIWidget.tsx
+│               └── KPIWidget.module.css
+```
+
+---
+
+## 4. 🎯 Styling Strategy
+
+### 4.1 Component-Level Styling (Primary)
+
+* All components MUST use **CSS Modules**
+* Styles must be colocated with components
+
+```tsx
+import styles from "./Component.module.css";
+```
+
+✅ Benefits:
+
+* No global conflicts
+* Easier refactoring
+* Predictable styling
+
+---
+
+### 4.2 Design Tokens (Mandatory)
+
+All reusable values must use CSS variables:
+
+```css
+:root {
+  --color-primary: #4f46e5;
+  --spacing-md: 16px;
+}
+```
+
+🚫 Avoid:
+
+```css
+margin: 17px;
+color: #123456;
+```
+
+---
+
+### 4.3 Global Styles (Restricted)
+
+Allowed:
+
+* CSS Reset
+* Typography
+* Theme variables
+
+Not allowed:
+
+* Feature-specific styles
+* Component styles
+
+---
+
+## 5. 🧩 Naming Conventions
+
+### 5.1 Files
+
+| Type       | Naming Format         | Example             |
+| ---------- | --------------------- | ------------------- |
+| Component  | PascalCase.tsx        | UserCard.tsx        |
+| CSS Module | PascalCase.module.css | UserCard.module.css |
+| Hook       | useCamelCase.ts       | useAuth.ts          |
+
+---
+
+### 5.2 CSS Classes
+
+Use **clear, readable names (BEM-inspired but simplified)**:
+
+```css
+.container {}
+.header {}
+.title {}
+.active {}
+```
+
+🚫 Avoid:
+
+```css
+.box {}
+.redText {}
+.style1 {}
+```
+
+---
+
+## 6. 🧠 Best Practices
+
+### ✅ Do
+
+* Keep styles **small and component-focused**
+* Use **design tokens** for consistency
+* Prefer **composition over overrides**
+* Keep CSS **flat (avoid deep nesting)**
+
+---
+
+### ❌ Don’t
+
+* Don’t write global component styles
+* Don’t use `!important`
+* Don’t deeply nest selectors
+* Don’t hardcode values
+
+---
+
+## 7. 🎨 Theming
+
+Themes must be implemented using CSS variables:
+
+```css
+[data-theme="dark"] {
+  --color-primary: #818cf8;
+}
+```
+
+Switch themes via root attribute.
+
+---
+
+## 8. ⚙️ Utilities (Limited Usage)
+
+Utility classes are allowed only in `styles/utilities/`:
+
+```css
+.mt-sm { margin-top: var(--spacing-sm); }
+.flex { display: flex; }
+```
+
+⚠️ Avoid overusing utilities (no Tailwind-style clutter unless explicitly adopted)
+
+---
+
+## 9. 🧪 Maintainability Rules
+
+* Each component should have **its own CSS module**
+* No cross-feature style imports
+* Shared styles must go into `shared/` or `styles/`
+
+---
+
+## 10. 🚀 Performance Considerations
+
+* Avoid unused CSS
+* Prefer scoped styles over global
+* Minimize runtime styling (avoid heavy CSS-in-JS unless needed)
+
+---
+
+## 11. 📏 Code Review Checklist
+
+Before merging:
+
+* [ ] Is styling scoped (CSS Module)?
+* [ ] Are design tokens used?
+* [ ] Any hardcoded values?
+* [ ] Any unnecessary nesting?
+* [ ] Any global leakage?
+
+---
+
+## 12. 🏁 Summary
+
+We prioritize:
+
+* **Scalability** → Feature-based structure
+* **Isolation** → CSS Modules
+* **Consistency** → Design Tokens
+* **Simplicity** → Minimal global CSS
+
+This ensures a clean, maintainable, and enterprise-ready styling system.
