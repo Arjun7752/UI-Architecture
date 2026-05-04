@@ -370,3 +370,37 @@ We prioritize:
 * **Simplicity** → Minimal global CSS
 
 This ensures a clean, maintainable, and enterprise-ready styling system.
+#clean SMACSS-based folder structure adapted for a real project
+src/
+│
+├── styles/                         # 🌍 All global styles (SMACSS-driven)
+│
+│   ├── base/                       # Base Layer – Default element styles
+│   │   ├── _reset.css              # Reset / normalize
+│   │   ├── _typography.css         # Headings, paragraphs, fonts
+│   │   └── _base.css               # Body defaults, global HTML rules
+│   │
+│   ├── layout/                     # Layout Layer – Page structure
+│   │   ├── _header.css             # Header layout
+│   │   ├── _footer.css             # Footer layout
+│   │   ├── _grid.css               # Grid system
+│   │   └── _sidebar.css            # Sidebar layout
+│   │
+│   ├── modules/                    # Module Layer – Reusable components
+│   │   ├── _button.css             # Button styles
+│   │   ├── _card.css               # Card component
+│   │   ├── _modal.css              # Modal component
+│   │   └── _table.css              # Table component
+│   │
+│   ├── state/                      # State Layer – UI states
+│   │   ├── _isActive.css           # .is-active
+│   │   ├── _isHidden.css           # .is-hidden
+│   │   └── _hasError.css           # .has-error
+│   │
+│   ├── theme/                      # Theme Layer – Visual themes
+│   │   ├── _light.css              # Light theme
+│   │   └── _dark.css               # Dark theme
+│   │
+│   └── main.css                    # 👈 Entry point (imports everything)
+│
+├── index.tsx                       # App entry point
