@@ -95,3 +95,18 @@ dashboard/                           # Feature root – Dashboard (analytics, ov
 │
 └── data/                            # Data Layer – Mock / static feature data
     └── dashboard.mock.ts            # Mock dashboard data for development
+
+
+    | Item Type        | Naming Style           | Example                | Purpose                                 |
+| ---------------- | ---------------------- | ---------------------- | --------------------------------------- |
+| Folder           | camelCase              | analytics, activity    | Domain-specific, feature-scoped folders |
+| Component file   | PascalCase.tsx         | RevenueChart.tsx       | UI rendering, responsibility-specific   |
+| Hook file        | useCamelCase.ts        | useDashboard.ts        | Encapsulates feature logic              |
+| Service file     | camelCase.service.ts   | dashboard.service.ts   | API calls / async logic                 |
+| Constants file   | camelCase.constants.ts | dashboard.constants.ts | Static values, labels, enums            |
+| Types file       | camelCase.types.ts     | dashboard.types.ts     | TypeScript interfaces and types         |
+| Page file        | PascalCase.tsx         | DashboardPage.tsx      | Route-level orchestration               |
+| Utils file       | camelCase.ts           | formatChartData.ts     | Reusable helper functions               |
+| Redux Slice      | camelCaseSlice.ts      | dashboardSlice.ts      | Feature-specific state management       |
+| Data / Mock file | camelCase.mock.ts      | dashboard.mock.ts      | Feature-scoped mock/static data         |
+
