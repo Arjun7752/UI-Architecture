@@ -1,1 +1,404 @@
+React App Onboarding Guide (Windows)
 
+---
+
+## ⚠️ Important Note
+
+* Do **NOT install any software from the internet**
+* Always use **Software Center** for installations
+* If a required tool is not available, raise a request in **SailPoint**
+* Do not commit sensitive files like `.env` or folders like `node_modules`
+
+---
+
+## 1. Install Git
+
+**Software Center (Recommended)**
+• Install Git from your Software Center
+• If not available, raise a request in SailPoint to get access/install
+
+**Verify & Configure**
+
+```bash id="um1cub"
+git --version
+git config --global user.name "Your Name"
+git config --global user.email "your.name@citizensbank.com"
+```
+
+---
+
+## 2. Install Node.js
+
+**Software Center (Recommended)**
+• Install Node.js (LTS) from Software Center
+• If not available, raise a request in SailPoint to get access/install
+
+**Verify**
+
+```bash id="ybmedo"
+node -v
+npm -v
+```
+
+> ⚠️ Use the project-recommended Node version (e.g., 20.19)
+
+---
+
+## 3. Install NVM for Windows (Optional and can skip for first time setup)
+
+**Software Center (Recommended)**
+• Install NVM for Windows from Software Center if available
+
+**Verify**
+
+```powershell id="375kg0"
+nvm version
+```
+
+⚠️ Optional (if using NVM to manage versions)
+
+```powershell id="exz1u9"
+nvm install 20.19
+nvm use 20.19
+```
+
+---
+
+## 4. Package Manager
+
+• npm comes with Node.js
+
+**Verify**
+
+```bash id="s715lh"
+npm -v
+```
+
+---
+
+## 5. Generate SSH Key (Primary Auth Method)
+
+> Used for secure authentication with Git without needing username/password every time
+
+```powershell id="pl5kep"
+ssh-keygen -t ed25519 -C "your.name@citizensbank.com"
+Start-Service ssh-agent
+ssh-add %USERPROFILE%\.ssh\id_ed25519
+type %USERPROFILE%\.ssh\id_ed25519.pub | clip
+```
+
+• Add the copied key to your Git provider (GitHub/GitLab)
+
+---
+
+## 6. Generate Personal Access Token (PAT) (Optional)
+
+> Used as a secure alternative to passwords for HTTPS, APIs, or external tools
+
+Only required for HTTPS, APIs, or tools (not needed if using SSH)
+
+• Create from Git provider → Tokens (classic)
+• Use instead of password when prompted
+
+---
+
+## 7. Clone Repository
+
+```bash id="tuwfy3"
+git clone git@github.com:your-org/your-repo.git
+cd your-repo
+```
+
+---
+
+## 8. Install Dependencies
+
+```bash id="wjp1cc"
+npm install
+```
+
+> ⚠️ Run `npm install` again after pulling latest changes if dependencies are updated
+
+---
+
+## 10. Run the App
+
+```bash id="xnsf3z"
+npm start
+```
+
+Open: http://localhost:3000
+
+---
+
+## 11. Common Git Commands
+
+### 🔄 Daily Sync (Before Starting Work)
+
+```bash id="sync123"
+git fetch --all
+git pull --rebase
+```
+
+* `git fetch --all` → downloads latest changes from all remote branches (safe, no code changes applied yet)
+* `git pull --rebase` → updates your current branch with latest changes and reapplies your commits on top
+* Helps avoid conflicts and keeps your branch up to date before you start working
+
+---
+
+### Check current branch
+
+```bash id="b2k7xq"
+git branch
+```
+
+Shows current branch (highlighted with `*`).
+
+---
+
+### List all branches
+
+```bash id="c9p4mz"
+git branch -a
+```
+
+Shows all local and remote branches.
+
+---
+
+### List remote branches
+
+```bash id="x5m8qt"
+git branch -r
+```
+
+Shows only remote branches.
+
+---
+
+### Fetch all branches
+
+```bash id="n8v3qp"
+git fetch --all
+```
+
+Fetches updates from all remotes without merging into your current branch.
+
+---
+
+### Create new branch
+
+```bash id="dbadvo"
+git checkout -b feature/PROJ-123-description
+```
+
+Creates and switches to a new branch.
+
+---
+
+### Switch branch
+
+```bash id="g5k0m3"
+git checkout develop
+```
+
+Switches to an existing branch.
+
+---
+
+### Check changes
+
+```bash id="lm4kyd"
+git status
+```
+
+Shows modified, staged, and untracked files.
+
+---
+
+### Compare changes
+
+```bash id="k7p2xm"
+git diff
+```
+
+Shows unstaged changes.
+
+```bash id="r4m8zt"
+git diff --staged
+```
+
+Shows staged changes before commit.
+
+---
+
+### Stage changes
+
+```bash id="4zmrwz"
+git add .
+```
+
+Adds all changes to staging area.
+
+---
+
+### Commit changes
+
+```bash id="va8ozn"
+git commit -m "type: message"
+```
+
+Saves staged changes locally.
+
+---
+
+### View commit history
+
+```bash id="g1m9qp"
+git log --oneline --graph --decorate
+```
+
+Shows compact, visual commit history.
+
+---
+
+### Stash changes
+
+```bash id="v3p9xn"
+git stash
+git stash pop
+```
+
+Temporarily saves changes without committing and reapplies later.
+
+---
+
+### Pull latest changes (preferred)
+
+```bash id="ambjeh"
+git pull --rebase
+```
+
+Fetches latest code and reapplies your commits on top (keeps history clean).
+
+---
+
+### Push with upstream (first time)
+
+```bash id="y2p7xm"
+git push -u origin <branch-name>
+```
+
+Sets upstream so future `git push`/`git pull` work without specifying branch.
+
+---
+
+### Push changes
+
+```bash id="owjb7t"
+git push
+```
+
+Uploads commits to remote repository.
+
+---
+
+### Delete branch
+
+```bash id="x2m7qp"
+git branch -d branch-name
+```
+
+Deletes a local branch after merge.
+
+---
+
+### Rename branch
+
+```bash id="p8m3zt"
+git branch -m new-branch-name
+```
+
+Renames current branch.
+
+---
+
+### Rebase (Preferred)
+
+```bash id="ldge2q"
+git pull --rebase origin develop
+```
+
+• Updates your branch with latest changes
+• Keeps history clean (no extra merge commits)
+
+If conflicts occur:
+
+```bash id="83e2dr"
+git status
+# resolve conflicts
+git add .
+git rebase --continue
+```
+
+---
+
+### Reset last commit (Optional - be careful)
+
+```bash id="z9p4xm"
+git reset --soft HEAD~1
+```
+
+Undoes last commit but keeps changes locally.
+
+---
+
+## 12. Commit Message Convention
+
+**Format**
+
+```bash id="8yyy5w"
+git commit -m "<type>(scope): short-description"
+```
+
+**Common Scenarios**
+
+```id="rngonk"
+feat: add new feature
+fix: resolve bug
+docs: update documentation
+refactor: improve code structure
+chore: update dependencies
+test: add/update tests
+style: formatting changes
+```
+
+---
+
+## 13. Branch Naming Convention
+
+**Format**
+
+```id="ju12ky"
+<type>/<ticket-id>-description
+```
+
+**Example**
+
+```id="oag1r9"
+feature/PROJ-123-add-login
+```
+
+---
+
+## 14. Git Workflow
+
+• develop → development branch
+• main → production
+• Create feature branches from develop
+• Raise PR → merge into develop
+• Release → merge develop into main
+
+---
+
+You’re ready to start 🚀
